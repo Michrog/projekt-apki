@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<!-- TU ZROBIĆ POKAZYWANIE SIĘ KOMENTARZY POD POSTEM! -->
+
+<p>
+  <strong>Content:</strong>
+  <%= @post.content %>
+</p>
+
+<p>
+  <strong>Post date:</strong>
+  <%= @post.post_date %>
+</p>
+
+<p>
+  <strong>Post group:</strong>
+  <%= @post.post_group %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+
+<p>
+  <strong>Profile:</strong>
+  <%= @post.profile_id %>
+</p>
+
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>

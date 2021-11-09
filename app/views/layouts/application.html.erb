@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>App</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if logged_in? %>
+      Zalogowany jako <%= current_user.name %>
+    <% else %>
+      Wylogowany
+    <% end %>
+
+    <ul style="display:flex; list-style-type:none; justify-content: space-between; width: 40%;
+    font-weight:bold">
+      <li><%= link_to "Home", root_path %></li>
+      <li><%= link_to "Posty", posts_path %></li>
+      <li><%= link_to "Users", users_path %></li>
+      <% if logged_in? %>
+        <li><%= link_to current_user.name, current_user %></li>
+        <li><%= link_to "Wyloguj", logout_path, method: :delete %></li>
+      <% else %>
+        <li><%= link_to "Zaloguj", login_path %></li>
+      <% end %>
+    </ul>
+
+    <%= yield %>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+<ul>
+  <% for profile in current_user.profiles do %>
+    <% for post in profile.posts do %>
+    <h1><li><%= post.title %></li></h1>
+    <li><%= post.content %></li>
+    <li><%= post.post_date %></li>
+    <% end %>
+  <% end %>
+  <!--NALEŻY JESZCZE ZROBIĆ POKAZANIE KOMENTARZY!-->
+</ul>

@@ -1,0 +1,16 @@
+<h1>siema</h1>
+<%= Time.now %>
+
+<% if logged_in? %>
+  <h2>Twoje posty</h2>
+  <% current_user.profiles.each do |profile| %>
+    <%= profile.name %><br>
+    <% profile.posts.each do |post| %>
+      <h3><%= post.title %></h3>
+      <h4><%= post.content %></h4>
+      <h5><%= post.post_date %></h5>
+    <% end %>
+  <% end %>
+<% else %>
+  Nie jesteś zalogowany.
+<% end %>
