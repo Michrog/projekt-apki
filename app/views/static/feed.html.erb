@@ -1,10 +1,15 @@
-<ul>
-  <% for profile in current_user.profiles do %>
-    <% for post in profile.posts do %>
-    <h1><li><%= post.title %></li></h1>
-    <li><%= post.content %></li>
-    <li><%= post.post_date %></li>
-    <% end %>
+<p style="text-align: center;"><%= link_to 'Back', root_path %></p>
+<div class="feed-grid">
+  <% Post.find_each do |post| %>
+  <div class="feed-post-block">
+    <h4><span class="post-title"><%= link_to post.title, post %></span> <span class="post-author">
+      <%=
+      profileId = post.profile_id
+      profile = Profile.find_by(id: profileId)
+      profile.name
+      %>
+    </span></h4>
+    <p class="post-date"><%= post.post_date %></p>
+  </div>
   <% end %>
-  <!--NALEŻY JESZCZE ZROBIĆ POKAZANIE KOMENTARZY!-->
-</ul>
+</div>

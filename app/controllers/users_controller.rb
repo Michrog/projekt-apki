@@ -18,12 +18,25 @@ class UsersController < ApplicationController
     param :path, :id, :integer, :required, "User's id"
     notes 'notes'
   end
+
   def show
+    @user = User.find(params[:id])
   end
 
   # GET /users/new
   def new
     @user = User.new
+  end
+
+  def profiles
+  end
+
+  def setProfile
+    @user = User.find_by(id: params[:id])
+    @user.current_profile_id = params[:current_profile_id]
+    @user.save(validate: false)
+
+    redirect_to current_user
   end
 
   # GET /users/1/edit
@@ -76,7 +89,11 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      if !User.exists?(params[:id])
+        render_not_found
+      else
+        @user = User.find(params[:id])
+      end
     end
 
     # Only allow a list of trusted parameters through.

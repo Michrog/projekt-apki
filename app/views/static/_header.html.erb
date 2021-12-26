@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <%= link_to "Projekt", root_path, class:"navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <% if logged_in? %>
+        <li class="nav-item">
+          <span class="nav-link">Zalogowany jako <%= link_to current_user.name, current_user %></span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link">Profil: <%= current_profile.name %></span>
+        </li>
+        <li>
+          <span class="nav-link"><%= link_to "Wyloguj", logout_path, method: :delete %></span>
+        </li>
+        <li>
+          <span class="nav-link"><%= link_to "Napisz posta", users_posts_new_path(:id => current_user.id, :current_profile_id => current_user.current_profile_id) %></span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link"><%= link_to "Feed", feed_path %></span>
+        </li>
+        <% else %>
+        <li class="nav-item">
+          <span class="nav-link">Wylogowany</span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link"><%= link_to "Zaloguj", login_path %></span>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>

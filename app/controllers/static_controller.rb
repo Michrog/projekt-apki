@@ -8,7 +8,6 @@ class StaticController < ApplicationController
   before_action :require_token, only: [:feed]
 
   def feed
-
   end
 
 end

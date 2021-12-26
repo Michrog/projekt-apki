@@ -18,7 +18,18 @@ class ProfilesController < ApplicationController
     param :path, :id, :integer, :required, "profile's id"
     notes 'notes'
   end
+
   def show
+  end
+
+  def showForUser
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html { }
+      format.json { render json: @user.profiles, code: '200' }
+    end
+
   end
 
   # GET /profiles/new

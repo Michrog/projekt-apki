@@ -3,6 +3,16 @@
 <!-- TU ZROBIĆ POKAZYWANIE SIĘ KOMENTARZY POD POSTEM! -->
 
 <p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+  <strong>Profile:</strong>
+  <%=
+  profileId = @post.profile_id
+  Profile.find_by(:id => profileId).name
+  %>
+</p>
+
+<p>
   <strong>Content:</strong>
   <%= @post.content %>
 </p>
@@ -12,20 +22,41 @@
   <%= @post.post_date %>
 </p>
 
-<p>
-  <strong>Post group:</strong>
-  <%= @post.post_group %>
-</p>
+<p><%= link_to 'Back', root_path %></p>
+<p>Komentarze: </p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+<div class="create-comment-block">
+  <%= form_for(:comment) do |f| %>
+    <%= f.text_field :content, class: 'form-control' %>
 
-<p>
-  <strong>Profile:</strong>
-  <%= @post.profile_id %>
-</p>
+    <%= f.hidden_field :post_group, :value => nil %>
+    <%=
+        profileId = current_user.current_profile_id
+        f.hidden_field :profile_id, :value => profileId
+    %>
+    <%= f.hidden_field :post_id, :value => @post.id %>
+    <%= f.hidden_field :comment_date, :value => DateTime.current.to_date %>
+    <%= f.hidden_field :comment_time, :value => Time.current %>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+    <%= f.submit "Create Comment" %>
+  <% end %>
+</div>
+
+<div class="comments-block">
+  <% @post.comments.each do |comment| %>
+    <div class="comment-block">
+      <div class="comment-author">
+        <strong>
+          <%=
+          profileId = comment.profile_id
+          Profile.find_by(:id => profileId).name
+          %>
+        </strong>
+        <%= comment.comment_date %> <%= comment.comment_time %>
+      </div>
+      <div class="comment-content"><p><%= comment.content %></p></div>
+    </div>
+  <% end %>
+</div>
+
+<%# link_to 'Edit', edit_post_path(@post) %>

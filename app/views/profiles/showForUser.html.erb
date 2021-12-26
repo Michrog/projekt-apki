@@ -1,0 +1,7 @@
+<h1>Twoje profile: </h1>
+<ul>
+  <% @user.profiles.each do |profile| %>
+    <li><%= profile.id %> | <%= profile.name %></li>
+  <% end %>
+</ul>
+<%= link_to 'back', current_user %>

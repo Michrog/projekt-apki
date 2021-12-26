@@ -1,7 +1,11 @@
 body {
-  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   color: #333;
-  margin: 33px; }
+  height: 100vh;
+  //margin: 33px;
+}
 
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;

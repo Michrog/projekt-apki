@@ -10,6 +10,14 @@ Rails.application.routes.draw do
 
   get '/feed', to: 'static#feed'
 
+  get '/users/:id/profiles', to: 'profiles#showForUser', as:  :users_profiles
+  patch '/users/:id/profiles', to: 'users#setProfile'
+
+  get '/users/:id/posts/new', to: 'posts#new', as: :users_posts_new
+  post '/users/:id/posts/new', to: 'posts#create'
+
+  post '/posts/:id', to: 'comments#create'
+
   resources :comments
   resources :posts
   resources :profiles

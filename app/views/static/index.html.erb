@@ -1,14 +1,14 @@
-<h1>siema</h1>
-<%= Time.now %>
-
+<h1>Witaj</h1>
+<%= DateTime.current.to_date %>
 <% if logged_in? %>
-  <h2>Twoje posty</h2>
+  <h1>Twoje posty</h1>
   <% current_user.profiles.each do |profile| %>
-    <%= profile.name %><br>
     <% profile.posts.each do |post| %>
-      <h3><%= post.title %></h3>
-      <h4><%= post.content %></h4>
-      <h5><%= post.post_date %></h5>
+    <div class="post-block">
+      <h4><span class="post-title"><%= link_to post.title, post %></span> <span class="post-author"><%= profile.name %></span></h4>
+      <div class="post-content"><%= post.content %></div>
+      <p class="post-date"><%= post.post_date %></p>
+    </div>
     <% end %>
   <% end %>
 <% else %>

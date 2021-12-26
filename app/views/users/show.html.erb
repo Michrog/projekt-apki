@@ -1,30 +1,49 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<div class=user-show-grid>
+  <div class="user-show-grid-info">
+    <p>
+      <strong>Id:</strong>
+      <%= @user.id %>
+    </p>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @user.last_name %>
-</p>
+    <p>
+      <strong>Name:</strong>
+      <%= @user.name %>
+    </p>
 
-<p>
-  <strong>User type:</strong>
-  <%= @user.user_type %>
-</p>
+    <p>
+      <strong>Last name:</strong>
+      <%= @user.last_name %>
+    </p>
 
-<p>
-  <strong>User index:</strong>
-  <%= @user.user_index %>
-</p>
+    <p>
+      <strong>User type:</strong>
+      <%= @user.user_type %>
+    </p>
 
-<ul>
-  <% current_user.profiles.each do |profile| %>
-    <li><%= profile.id %> | <%= profile.name %></li>
-  <% end %>
-</ul>
+    <p>
+      <strong>User index:</strong>
+      <%= @user.user_index %>
+    </p>
+  </div>
+  <div class="user-show-grid-profiles">
+    <h4>Twoje profile: </h4>
+      <% @user.profiles.each do |profile| %>
+        <%= link_to content_tag(:div, profile.name), users_profiles_path(:current_profile_id => profile.id), method: :patch %>
+      <% end %>
+      <% if profile_set? %>
+      <div>
+        Wybrany profil: <%= current_profile.name %>
+      </div>
+      <% else %>
+      <div>
+        Nie wybrano Profilu
+      </div>
+      <% end %>
+  </div>
+</div>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<%= link_to 'Back', root_path %> |
+<%= link_to 'Profiles', users_profiles_path %>

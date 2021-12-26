@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_08_184935) do
+ActiveRecord::Schema.define(version: 2021_12_23_231129) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 2021_11_08_184935) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
     t.string "token"
+    t.integer "current_profile_id"
     t.index ["token"], name: "index_users_on_token"
     t.index ["user_index"], name: "index_users_on_user_index", unique: true
   end

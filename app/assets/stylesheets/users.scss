@@ -1,3 +1,30 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.user-show-grid
+{
+  //background-color: green;
+  display: flex;
+}
+
+.user-show-grid-info
+{
+  //background-color: lime;
+}
+
+.user-show-grid-profiles
+{
+  //background-color: hsl(126, 100, 30);
+}
+
+.user-show-grid-profiles div
+{
+  margin: 0.4em;
+}
+
+.user-show-grid-profiles div:hover
+{
+  //background-color: hsl(126, 100, 10);
+  color: red;
+}
