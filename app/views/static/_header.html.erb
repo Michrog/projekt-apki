@@ -11,7 +11,9 @@
           <span class="nav-link">Zalogowany jako <%= link_to current_user.name, current_user %></span>
         </li>
         <li class="nav-item">
-          <span class="nav-link">Profil: <%= current_profile.name %></span>
+          <% if profile_set? %>
+            <span class="nav-link">Profil: <%= current_profile.name %></span>
+          <% end %>
         </li>
         <li>
           <span class="nav-link"><%= link_to "Wyloguj", logout_path, method: :delete %></span>
@@ -28,6 +30,9 @@
         </li>
         <li class="nav-item">
           <span class="nav-link"><%= link_to "Zaloguj", login_path %></span>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link"><%= link_to "Załóż konto", signup_path %></span>
         </li>
         <% end %>
       </ul>

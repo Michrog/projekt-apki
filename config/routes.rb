@@ -8,10 +8,16 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  get '/signup', to: 'users#new'
+  post '/signup', to: 'users#create'
+
   get '/feed', to: 'static#feed'
 
   get '/users/:id/profiles', to: 'profiles#showForUser', as:  :users_profiles
   patch '/users/:id/profiles', to: 'users#setProfile'
+
+  get '/users/:id/profiles/new', to: 'profiles#new', as: :users_profiles_new
+  post '/users/:id/profiles/new', to: 'profiles#create'
 
   get '/users/:id/posts/new', to: 'posts#new', as: :users_posts_new
   post '/users/:id/posts/new', to: 'posts#create'
