@@ -117,6 +117,7 @@ GEM
       rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
+    railroady (1.6.0)
     rails (6.1.4.1)
       actioncable (= 6.1.4.1)
       actionmailbox (= 6.1.4.1)
@@ -224,6 +225,7 @@ DEPENDENCIES
   listen (~> 3.3)
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
+  railroady
   rails (~> 6.1.4, >= 6.1.4.1)
   rails-erd
   sass-rails (>= 6)
