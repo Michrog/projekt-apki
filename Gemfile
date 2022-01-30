@@ -23,6 +23,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'rails-erd'
 gem 'swagger-docs'
 gem 'pg'
+gem 'rack-cors'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

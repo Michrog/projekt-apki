@@ -5,18 +5,7 @@
   "resourcePath": "users",
   "apis": [
     {
-      "path": "/users",
-      "operations": [
-        {
-          "summary": "Returns all users",
-          "notes": "notes",
-          "nickname": "Users#index",
-          "method": "get"
-        }
-      ]
-    },
-    {
-      "path": "/users",
+      "path": "/signup",
       "operations": [
         {
           "summary": "create a user",
@@ -24,6 +13,13 @@
             {
               "paramType": "form",
               "name": "user[name]",
+              "type": "string",
+              "description": "User's name",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "user[last_name]",
               "type": "string",
               "description": "User's name",
               "required": true
@@ -41,10 +37,55 @@
               "type": "string",
               "description": "User's password",
               "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "user[user_type]",
+              "type": "string",
+              "description": "User's type",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 201,
+              "responseModel": null,
+              "message": "Pomyślne utworzenie użytkownika."
+            },
+            {
+              "code": 422,
+              "responseModel": null,
+              "message": "Źle podane dane."
             }
           ],
           "nickname": "Users#create",
           "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/users",
+      "operations": [
+        {
+          "summary": "Returns all users",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Pomyślne wyświetlenie użytkowników"
+            }
+          ],
+          "nickname": "Users#index",
+          "method": "get"
         }
       ]
     },
@@ -55,6 +96,13 @@
           "summary": "returns one user",
           "parameters": [
             {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
               "paramType": "path",
               "name": "id",
               "type": "integer",
@@ -62,9 +110,170 @@
               "required": true
             }
           ],
-          "notes": "notes",
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Pomyślne wyświetlenie użytkownika"
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Nie ma takiego użytkownika"
+            }
+          ],
           "nickname": "Users#show",
           "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/users/{id}",
+      "operations": [
+        {
+          "summary": "update a user",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "User's id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "user[current_profile_id]",
+              "type": "integer",
+              "description": "User's current profile",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "user[password]",
+              "type": "string",
+              "description": "User's password",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "user[password_confirmation]",
+              "type": "string",
+              "description": "password confirmation",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "user[name]",
+              "type": "string",
+              "description": "User's name",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "user[last_name]",
+              "type": "string",
+              "description": "User's name",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "user[user_index]",
+              "type": "string",
+              "description": "User's index",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "user[user_type]",
+              "type": "string",
+              "description": "User's type",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Pomyślne utworzenie użytkownika."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja (zły token)."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Próba edycji innego użytkownika lub profil nie należy do użytkownika."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Profil nie istnieje."
+            },
+            {
+              "code": 422,
+              "responseModel": null,
+              "message": "Niepoprawne dane."
+            }
+          ],
+          "nickname": "Users#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/users/{id}",
+      "operations": [
+        {
+          "summary": "delete a user",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "User's id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 204,
+              "responseModel": null,
+              "message": "Pomyślne usunięcie użytkownika."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja (zły token)."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Próba usunięcia innego uzytkownika"
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Użytkownik nie istnieje"
+            }
+          ],
+          "nickname": "Users#destroy",
+          "method": "delete"
         }
       ]
     }

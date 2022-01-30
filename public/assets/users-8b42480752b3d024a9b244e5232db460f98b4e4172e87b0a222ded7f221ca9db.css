@@ -1,0 +1,14 @@
+/* line 5, app/assets/stylesheets/users.scss */
+.user-show-grid {
+  display: flex;
+}
+
+/* line 21, app/assets/stylesheets/users.scss */
+.user-show-grid-profiles div {
+  margin: 0.4em;
+}
+
+/* line 26, app/assets/stylesheets/users.scss */
+.user-show-grid-profiles div:hover {
+  color: red;
+}

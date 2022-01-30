@@ -2,6 +2,8 @@
 <ul>
   <% @user.profiles.each do |profile| %>
     <li><%= profile.id %> | <%= profile.name %></li>
+
   <% end %>
 </ul>
-<%= link_to 'back', current_user %>
+
+<%= link_to 'Back', current_user %>

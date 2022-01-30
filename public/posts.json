@@ -5,12 +5,66 @@
   "resourcePath": "posts",
   "apis": [
     {
-      "path": "/posts",
+      "path": "/users/{id}/posts/new",
       "operations": [
         {
-          "summary": "returns all posts",
-          "nickname": "Posts#index",
-          "method": "get"
+          "summary": "create a post",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "user's id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "post[title]",
+              "type": "string",
+              "description": "Post's title",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "post[content]",
+              "type": "string",
+              "description": "Post's content",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "post[profile_id]",
+              "type": "integer",
+              "description": "Post's author",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 201,
+              "responseModel": null,
+              "message": "Pomyślne stworzenie posta."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Próba utworzenia posta autorstwa innego użytkownika lub obcego profilu."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Próba utworzenia posta autorstwa użytkownika lub profilu które nie istnieje."
+            }
+          ],
+          "nickname": "Posts#create",
+          "method": "post"
         }
       ]
     },
@@ -18,32 +72,30 @@
       "path": "/posts",
       "operations": [
         {
-          "summary": "create a post",
+          "summary": "returns all posts",
           "parameters": [
             {
-              "paramType": "form",
-              "name": "post[title]",
+              "paramType": "header",
+              "name": "Authorization",
               "type": "string",
-              "description": "post's title",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "post[content]",
-              "type": "text",
-              "description": "post's content",
-              "required": true
-            },
-            {
-              "paramType": "form",
-              "name": "post[post_group]",
-              "type": "string",
-              "description": "post's viewers",
+              "description": "Authentication token",
               "required": true
             }
           ],
-          "nickname": "Posts#create",
-          "method": "post"
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Zwrócenie wszystkich postów."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja"
+            }
+          ],
+          "nickname": "Posts#index",
+          "method": "get"
         }
       ]
     },
@@ -54,6 +106,13 @@
           "summary": "returns one post",
           "parameters": [
             {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
               "paramType": "path",
               "name": "id",
               "type": "integer",
@@ -61,9 +120,137 @@
               "required": true
             }
           ],
-          "notes": "notes",
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Zwrócenie posta."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Post nie istnieje."
+            }
+          ],
           "nickname": "Posts#show",
           "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/posts/{id}",
+      "operations": [
+        {
+          "summary": "update a post",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "posts's id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "post[profile_id]",
+              "type": "integer",
+              "description": "Post's author",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "post[title]",
+              "type": "string",
+              "description": "Post's title",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "post[content]",
+              "type": "string",
+              "description": "Post's content",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Pomyślna edycja posta."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Próba edycji posta nie należy do użytkownika."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Próba edycji posta lub jego autora, który nie istnieje."
+            }
+          ],
+          "nickname": "Posts#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/posts/{id}",
+      "operations": [
+        {
+          "summary": "delete a post",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Post's id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 204,
+              "responseModel": null,
+              "message": "Pomyślne usunięcie posta."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja (zły token)."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Próba usunięcia posta innego uzytkownika."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Post nie istnieje."
+            }
+          ],
+          "nickname": "Posts#destroy",
+          "method": "delete"
         }
       ]
     }

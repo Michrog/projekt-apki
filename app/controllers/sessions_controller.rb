@@ -1,9 +1,18 @@
 class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token
+  swagger_controller :session, "Authentication"
 
   def new
   end
 
+
+swagger_api :create do
+  summary "get token"
+  param :form, "session[user_index]", :string, :required, "User's index"
+  param :form, "session[password]", :string, :required, "User's password"
+  response :ok, "Pomyślne zalogowanie i zwrócenie tokenu"
+  response :unprocessable_entity, "Błędne dane."
+end
   def create
     respond_to do |format|
 
@@ -26,12 +35,17 @@ class SessionsController < ApplicationController
           render 'new'
         }
         format.json {
-          render json: { message: 'Niepoprawne dane' }
+          render json: { message: 'Niepoprawne dane' }, status: :unprocessable_entity
         }
       end
     end
   end
 
+  swagger_api :destroy do
+    summary "invalidate token"
+    param :form, "session[user_index]", :string, :required, "User's index"
+    response :ok, "Pomyślne zalogowanie i zwrócenie tokenu"
+  end
   def destroy
     respond_to do |format|
       format.html do

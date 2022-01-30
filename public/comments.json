@@ -1,0 +1,262 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://localhost:3000",
+  "resourcePath": "comments",
+  "apis": [
+    {
+      "path": "/posts/{id}",
+      "operations": [
+        {
+          "summary": "create a comment",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "post's id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "comment[content]",
+              "type": "string",
+              "description": "comment's content",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "comment[profile_id]",
+              "type": "integer",
+              "description": "comment's author",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 201,
+              "responseModel": null,
+              "message": "Pomyślne stworzenie komentarza profilu użytkownika pod postem."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Próba utworzenia komentarza autorstwa profilu, który nie należy do użytkownika."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Próba utworzenia komentarza autorstwa profilu, który nie istnieje lub pod postem, który nie istnieje."
+            }
+          ],
+          "nickname": "Comments#create",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/comments",
+      "operations": [
+        {
+          "summary": "Returns all comments",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Pomyślne zwrócenie komentarzy."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            }
+          ],
+          "nickname": "Comments#index",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/comments/{id}",
+      "operations": [
+        {
+          "summary": "Returns one comment",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Comment's id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Pomyślne zwrócenie komentarza."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Komentarz nie istnieje."
+            }
+          ],
+          "nickname": "Comments#show",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/comments/{id}",
+      "operations": [
+        {
+          "summary": "update a comment",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "comment's id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "comment[content]",
+              "type": "string",
+              "description": "comment's content",
+              "required": false
+            },
+            {
+              "paramType": "form",
+              "name": "comment[profile_id]",
+              "type": "integer",
+              "description": "comment's author",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "comment[post_id]",
+              "type": "integer",
+              "description": "comment's post",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 201,
+              "responseModel": null,
+              "message": "Pomyślna edycja komentarza profilu użytkownika pod postem."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Próba edycji komentarza, który nie należy do profilu użytkownika lub ustawienie jako autora komentarza profil, który nie należy do użytkownika."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Próba edycji komentarza, który nie istnieje lub którego autor nie istnieje lub pod postem, który nie istnieje."
+            }
+          ],
+          "nickname": "Comments#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/comments/{id}",
+      "operations": [
+        {
+          "summary": "delete a comment",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "comment's id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 204,
+              "responseModel": null,
+              "message": "Pomyślne usunięcie komentarza profilu użytkownika pod postem."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Próba usunięcia komentarza autorstwa profilu, który nie należy do użytkownika."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Próba usunięcia komentarza, który nie istnieje."
+            }
+          ],
+          "nickname": "Comments#destroy",
+          "method": "delete"
+        }
+      ]
+    }
+  ],
+  "authorizations": null
+}

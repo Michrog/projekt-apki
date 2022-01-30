@@ -4,16 +4,28 @@
   "basePath": "http://localhost:3000",
   "apis": [
     {
-      "path": "/posts.{format}",
-      "description": "Posts"
+      "path": "/static.{format}",
+      "description": "Static"
     },
     {
-      "path": "/profiles.{format}",
-      "description": "Posts"
+      "path": "/sessions.{format}",
+      "description": "Authentication"
     },
     {
       "path": "/users.{format}",
       "description": "Users"
+    },
+    {
+      "path": "/profiles.{format}",
+      "description": "Profiles"
+    },
+    {
+      "path": "/posts.{format}",
+      "description": "Posts"
+    },
+    {
+      "path": "/comments.{format}",
+      "description": "Comments"
     }
   ],
   "authorizations": null,

@@ -5,22 +5,73 @@
   "resourcePath": "profiles",
   "apis": [
     {
-      "path": "/profiles",
+      "path": "/users/{id}/profiles",
       "operations": [
         {
-          "summary": "Returns all profiles",
-          "notes": "notes",
-          "nickname": "Profiles#index",
+          "summary": "returns user's profiles",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "user's id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Pomyślne zwrócenie profili użytkownika."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Próba przeglądania profili innego użytkownika."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Użytkownik nie istnieje."
+            }
+          ],
+          "nickname": "Profiles#showForUser",
           "method": "get"
         }
       ]
     },
     {
-      "path": "/profiles",
+      "path": "/users/{id}/profiles/new",
       "operations": [
         {
           "summary": "create a profile",
           "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "User's id",
+              "required": true
+            },
             {
               "paramType": "form",
               "name": "profile[name]",
@@ -30,14 +81,67 @@
             },
             {
               "paramType": "form",
-              "name": "profile[description]",
+              "name": "profile[desc]",
               "type": "text",
               "description": "profile's description",
               "required": true
             }
           ],
+          "responseMessages": [
+            {
+              "code": 201,
+              "responseModel": null,
+              "message": "Pomyślne stworzenie nowego profilu użytkownika."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Próba utworzenia profilu dla innego użytkownika."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Użytkownik nie istnieje."
+            }
+          ],
           "nickname": "Profiles#create",
           "method": "post"
+        }
+      ]
+    },
+    {
+      "path": "/profiles",
+      "operations": [
+        {
+          "summary": "Returns all profiles",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization token",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Pomyślne zwrócenie profili."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            }
+          ],
+          "nickname": "Profiles#index",
+          "method": "get"
         }
       ]
     },
@@ -48,6 +152,13 @@
           "summary": "returns one profile",
           "parameters": [
             {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authorization token",
+              "required": true
+            },
+            {
               "paramType": "path",
               "name": "id",
               "type": "integer",
@@ -55,9 +166,135 @@
               "required": true
             }
           ],
-          "notes": "notes",
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Pomyślne zwrócenie profilu."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Profil nie istnieje."
+            }
+          ],
           "nickname": "Profiles#show",
           "method": "get"
+        }
+      ]
+    },
+    {
+      "path": "/profiles/{id}",
+      "operations": [
+        {
+          "summary": "update a profile",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "Profile's id",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "profile[name]",
+              "type": "string",
+              "description": "profile's name",
+              "required": true
+            },
+            {
+              "paramType": "form",
+              "name": "profile[desc]",
+              "type": "string",
+              "description": "profile's description",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 200,
+              "responseModel": null,
+              "message": "Pomyślna edycja profilu."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Profil nie należy do użytkownika."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Profil nie istnieje."
+            }
+          ],
+          "nickname": "Profiles#update",
+          "method": "patch"
+        }
+      ]
+    },
+    {
+      "path": "/profiles/{id}",
+      "operations": [
+        {
+          "summary": "delete a profile",
+          "parameters": [
+            {
+              "paramType": "header",
+              "name": "Authorization",
+              "type": "string",
+              "description": "Authentication token",
+              "required": true
+            },
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "integer",
+              "description": "profile's id",
+              "required": true
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 204,
+              "responseModel": null,
+              "message": "Pomyślne usunięcie profilu."
+            },
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Niepomyślna autoryzacja."
+            },
+            {
+              "code": 403,
+              "responseModel": null,
+              "message": "Próba usunięcia profilu, który nie należy do użytkownika."
+            },
+            {
+              "code": 404,
+              "responseModel": null,
+              "message": "Profil nie istnieje."
+            }
+          ],
+          "nickname": "Profiles#destroy",
+          "method": "delete"
         }
       ]
     }
